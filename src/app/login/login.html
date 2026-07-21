@@ -1,0 +1,69 @@
+<div class="login-wrapper">
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="brand-icon-container">
+      <mat-icon class="briefcase-icon">medical_services</mat-icon>
+    </div>
+    <h1 class="brand-title">MediFlow HMS</h1>
+    <h2 class="brand-subtitle">CLINICAL ADMINISTRATION</h2>
+  </div>
+
+  <!-- Main Login Card -->
+  <mat-card class="login-card">
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-title">Welcome Back</mat-card-title>
+      <mat-card-subtitle class="card-subtitle">Access your clinical dashboard</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="card-content">
+      <form [formGroup]="loginForm" (submit)="login()">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="custom-label">Email Address</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">mail_outline</mat-icon>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="julian.vance@mediflow.com"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="custom-label">Password</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">lock_outline</mat-icon>
+            <input matInput formControlName="password" type="password" placeholder="••••••••" />
+            <mat-icon matSuffix class="input-icon visibility-icon">visibility_outline</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Options Row -->
+        <div class="options-row">
+          <mat-checkbox class="remember-me-checkbox" color="primary">Remember me</mat-checkbox>
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <!-- Login Button -->
+        <button [disabled]="loginForm.invalid" mat-flat-button class="login-btn">Log In</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Footer Links -->
+  <div class="footer">
+    <p class="help-text">Need help? <a href="#" class="support-link">Contact IT Support</a></p>
+    <div class="legal-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+
+  <!-- Help FAB -->
+  <button mat-fab class="help-fab">
+    <mat-icon>help_outline</mat-icon>
+  </button>
+</div>

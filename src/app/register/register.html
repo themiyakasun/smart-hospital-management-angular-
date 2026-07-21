@@ -1,0 +1,160 @@
+<div class="login-wrapper">
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="brand-icon-container">
+      <mat-icon class="briefcase-icon">medical_services</mat-icon>
+    </div>
+    <h1 class="brand-title">MediFlow HMS</h1>
+    <h2 class="brand-subtitle">CLINICAL ADMINISTRATION</h2>
+  </div>
+
+  <!-- Main Registration Card -->
+  <mat-card class="login-card">
+    <mat-card-header class="card-header">
+      <mat-card-title class="card-title">Create Account</mat-card-title>
+      <mat-card-subtitle class="card-subtitle"
+        >Register for your clinical dashboard</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content class="card-content">
+      <form [formGroup]="registerForm" (submit)="register()">
+        <!-- First Name Field -->
+        <div class="form-group">
+          <label class="custom-label">First Name</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">person_outline</mat-icon>
+            <input matInput formControlName="firstName" placeholder="Julian" />
+
+            @if (registerForm.get('firstName')?.hasError('required')) {
+              <mat-error>First name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Last Name Field -->
+        <div class="form-group">
+          <label class="custom-label">Last Name</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">person_outline</mat-icon>
+            <input matInput formControlName="lastName" placeholder="Vance" />
+
+            @if (registerForm.get('lastName')?.hasError('required')) {
+              <mat-error>Last name is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="custom-label">Email Address</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">mail_outline</mat-icon>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="julian.vance@mediflow.com"
+            />
+
+            @if (registerForm.get('email')?.hasError('required')) {
+              <mat-error>Email is required</mat-error>
+            }
+            @if (registerForm.get('email')?.hasError('email')) {
+              <mat-error>Please enter a valid email address</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Role Select Field -->
+        <div class="form-group">
+          <label class="custom-label">Role</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">badge</mat-icon>
+            <mat-select formControlName="role" placeholder="Select your role">
+              <mat-option value="doctor">Doctor</mat-option>
+              <mat-option value="nurse">Nurse</mat-option>
+              <mat-option value="administrator">Administrator</mat-option>
+              <mat-option value="staff">Support Staff</mat-option>
+            </mat-select>
+
+            @if (registerForm.get('role')?.hasError('required')) {
+              <mat-error>Please select a role</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="custom-label">Password</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">lock_outline</mat-icon>
+            <input matInput formControlName="password" type="password" placeholder="••••••••" />
+            <mat-icon matSuffix class="input-icon visibility-icon">visibility_outline</mat-icon>
+
+            @if (registerForm.get('password')?.hasError('required')) {
+              <mat-error>Password is required</mat-error>
+            }
+            @if (registerForm.get('password')?.hasError('pattern')) {
+              <mat-error
+                >Password must be at least 8 characters long and contain an uppercase letter, a
+                lowercase letter, a number, and a special character.</mat-error
+              >
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="form-group">
+          <label class="custom-label">Confirm Password</label>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-icon matPrefix class="input-icon">lock_outline</mat-icon>
+            <input
+              matInput
+              formControlName="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+            />
+            <mat-icon matSuffix class="input-icon visibility-icon">visibility_outline</mat-icon>
+
+            @if (registerForm.get('confirmPassword')?.hasError('required')) {
+              <mat-error>Please confirm your password</mat-error>
+            }
+            @if (
+              registerForm.get('confirmPassword')?.hasError('mismatch') ||
+              registerForm.hasError('passwordMisMatch')
+            ) {
+              <mat-error>Passwords do not match</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Options Row -->
+        <div class="options-row">
+          <mat-checkbox class="remember-me-checkbox" color="primary">
+            I agree to the Terms of Service
+          </mat-checkbox>
+        </div>
+
+        <!-- Register Button -->
+        <button [disabled]="registerForm.invalid" mat-flat-button class="login-btn">
+          Register
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Footer Links -->
+  <div class="footer">
+    <p class="help-text">Already have an account? <a href="#" class="support-link">Log In</a></p>
+    <div class="legal-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+
+  <!-- Help FAB -->
+  <button mat-fab class="help-fab">
+    <mat-icon>help_outline</mat-icon>
+  </button>
+</div>
