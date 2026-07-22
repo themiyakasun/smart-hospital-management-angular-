@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 export class Login implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -35,6 +39,6 @@ export class Login implements OnInit {
   }
 
   login() {
-    console.log(this.loginForm.value);
+    this.authService.loginUser(this.loginForm.value);
   }
 }

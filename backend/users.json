@@ -14,5 +14,13 @@
     "email": "test@gmail.com",
     "password": "$2a$10$GMf/cRpdM7/uvMWt5QJYEuEbaJ46sFwOmfeLrVut.37/MQBfdgwLW",
     "role": "nurse"
+  },
+  {
+    "id": "1784702040640",
+    "firstName": "themiya",
+    "lastName": "kasun",
+    "email": "themiya1@gmail.com",
+    "password": "$2a$10$xpLPA/ehkpLWoZRyOBeNL.sq8sG2..IhNBjiTmRbP5WrtYiAK5OjO",
+    "role": "nurse"
   }
 ]
