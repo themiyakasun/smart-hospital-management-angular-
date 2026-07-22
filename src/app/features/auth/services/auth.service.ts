@@ -6,6 +6,7 @@ import { LoginCredentialsModel } from '../models/login-credentials.model';
 import { LoginResponseModel } from '../models/login-response.model';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { RefreshResponseModel } from '../models/refresh-response.model';
 
 @Service()
 export class AuthService {
@@ -22,15 +23,49 @@ export class AuthService {
   loginUser(payload: LoginCredentialsModel) {
     return this.http.post<LoginResponseModel>('/api/auth/login', payload).pipe(
       tap((response) => {
-        localStorage.setItem('access_token', response.accessToken);
+        this.saveTokens(response.accessToken, response.refreshToken);
         this.isAuthenticated.set(true);
         this.userRole.set(this.getRoleFromToken());
       }),
     );
   }
 
+  refreshToken(refreshToken: string) {
+    return this.http.post<RefreshResponseModel>('/api/auth/refresh', { refreshToken }).pipe(
+      tap((response) => {
+        this.saveTokens(response.accessToken, response.refreshToken);
+        this.userRole.set(this.getRoleFromToken());
+      }),
+    );
+  }
+
+  logout(refreshToken: string) {
+    return this.http.post('/api/auth/logout', { refreshToken }).pipe(
+      tap((response) => {
+        this.removeTokens();
+        this.router.navigate(['/login']);
+        this.isAuthenticated.set(false);
+        this.userRole.set(null);
+      }),
+    );
+  }
+
   getToken(): string | null {
     return localStorage.getItem('access_token');
+  }
+
+  getRefreshToken(): string | null {
+    return localStorage.getItem('refresh_token');
+  }
+
+  private saveTokens(accessToken: string, refreshToken: string) {
+    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('refresh_token', refreshToken);
+  }
+
+  private removeTokens() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   }
 
   hasValidToken(): boolean {

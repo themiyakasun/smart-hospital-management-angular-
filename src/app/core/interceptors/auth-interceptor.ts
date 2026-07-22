@@ -6,6 +6,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
 
+  if (req.url.includes('/api/auth/refresh')) {
+    return next(req);
+  }
+
   if (token) {
     const clonedRequest = req.clone({
       setHeaders: {
