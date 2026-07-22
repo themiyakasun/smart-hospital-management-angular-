@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthService } from '../../services/auth.service';
+import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -25,11 +26,10 @@ import { AuthService } from '../../services/auth.service';
 })
 export class Login implements OnInit {
   loginForm!: FormGroup;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-  ) {}
+  isLoading = signal(false);
+  formBuilder = inject(NonNullableFormBuilder);
+  authService = inject(AuthService);
+  notificationService = inject(NotificationService);
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -39,6 +39,21 @@ export class Login implements OnInit {
   }
 
   login() {
-    this.authService.loginUser(this.loginForm.value);
+    if (this.loginForm.invalid) return;
+
+    this.isLoading.set(true);
+
+    this.authService.loginUser(this.loginForm.value).subscribe({
+      next: (response) => {
+        this.isLoading.set(false);
+
+        this.notificationService.showSuccess('Logged to account successfully!');
+        this.loginForm.reset();
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        console.error('Loggin failed, interceptor will show the UI message.');
+      },
+    });
   }
 }

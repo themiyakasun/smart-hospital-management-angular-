@@ -48,7 +48,9 @@
         </div>
 
         <!-- Login Button -->
-        <button [disabled]="loginForm.invalid" mat-flat-button class="login-btn">Log In</button>
+        <button [disabled]="loginForm.invalid || isLoading()" mat-flat-button class="login-btn">
+          {{ isLoading() ? 'Logging in...' : 'Log In' }}
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

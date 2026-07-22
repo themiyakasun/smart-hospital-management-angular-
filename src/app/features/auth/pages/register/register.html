@@ -137,8 +137,8 @@
         </div>
 
         <!-- Register Button -->
-        <button [disabled]="registerForm.invalid" mat-flat-button class="login-btn">
-          Register
+        <button [disabled]="registerForm.invalid || isLoading()" mat-flat-button class="login-btn">
+          {{ isLoading() ? 'Registering...' : 'Register' }}
         </button>
       </form>
     </mat-card-content>

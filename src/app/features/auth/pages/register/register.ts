@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -32,15 +32,12 @@ import { NotificationService } from '../../../../core/services/notification.serv
 })
 export class Register implements OnInit {
   registerForm!: FormGroup;
-  isLoading: boolean = false;
+  isLoading = signal(false);
+  formBuilder = inject(NonNullableFormBuilder);
+  authService = inject(AuthService);
+  notificationService = inject(NotificationService);
 
   private passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private notificationService: NotificationService,
-  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
@@ -59,17 +56,17 @@ export class Register implements OnInit {
   register() {
     if (this.registerForm.invalid) return;
 
-    this.isLoading = true;
+    this.isLoading.set(true);
 
     this.authService.registerUser(this.registerForm.value).subscribe({
       next: (response) => {
-        this.isLoading = false;
+        this.isLoading.set(false);
 
         this.notificationService.showSuccess('Account created successfully!');
         this.registerForm.reset();
       },
       error: (error) => {
-        this.isLoading = false;
+        this.isLoading.set(false);
         console.error('Registration failed, interceptor will show the UI message.');
       },
     });
