@@ -13,6 +13,7 @@ export class AuthService {
   private router = inject(Router);
 
   isAuthenticated = signal<boolean>(this.hasValidToken());
+  userRole = signal<string | null>(this.getRoleFromToken());
 
   registerUser(payload: RegisterCredentialsModel) {
     return this.http.post<RegisterResponseModel>('/api/auth/register', payload);
@@ -23,6 +24,7 @@ export class AuthService {
       tap((response) => {
         localStorage.setItem('access_token', response.accessToken);
         this.isAuthenticated.set(true);
+        this.userRole.set(this.getRoleFromToken());
       }),
     );
   }
@@ -36,6 +38,22 @@ export class AuthService {
     if (!token) return false;
 
     return !this.isTokenExpired(token);
+  }
+
+  private getRoleFromToken(): string | null {
+    const token = this.getToken();
+
+    if (!token) return null;
+
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const decodedJson = atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/'));
+      const decodedPayload = JSON.parse(decodedJson);
+
+      return decodedPayload.role || null;
+    } catch (error) {
+      return null;
+    }
   }
 
   private isTokenExpired(token: string): boolean {
