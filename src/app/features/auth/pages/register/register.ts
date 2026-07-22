@@ -10,8 +10,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 
-import { passwordMatchValidator } from '../validators/password-match.validator';
-import { RegisterService } from './services/register';
+import { AuthService } from '../../services/auth.service';
+import { passwordMatchValidator } from '../../../../validators/password-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +36,7 @@ export class Register implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +54,6 @@ export class Register implements OnInit {
   }
 
   register() {
-    this.registerService.registerUser(this.registerForm.value);
+    this.authService.registerUser(this.registerForm.value);
   }
 }

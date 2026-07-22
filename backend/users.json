@@ -6,5 +6,13 @@
     "email": "themiya@gmail.com",
     "password": "$2a$10$cHKZ1pVZYjBoqPT3WQxdZ.dnTVavLNGU4PxHcBBs45EHSa/egy9tq",
     "role": "doctor"
+  },
+  {
+    "id": "1784696494975",
+    "firstName": "Test",
+    "lastName": "Test",
+    "email": "test@gmail.com",
+    "password": "$2a$10$GMf/cRpdM7/uvMWt5QJYEuEbaJ46sFwOmfeLrVut.37/MQBfdgwLW",
+    "role": "nurse"
   }
 ]

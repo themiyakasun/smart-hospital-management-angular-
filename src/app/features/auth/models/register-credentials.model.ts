@@ -1,12 +1,7 @@
-export interface User {
+export interface RegisterCredentialsModel {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   role: string;
-}
-
-export interface UserResponse {
-  message: string;
-  user: User;
 }
