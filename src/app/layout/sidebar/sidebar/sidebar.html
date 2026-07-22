@@ -1,0 +1,74 @@
+<aside class="sidebar">
+  <!-- Header / Brand -->
+  <div class="sidebar-header">
+    <div class="logo-container">
+      <mat-icon class="logo-icon">medical_services</mat-icon>
+    </div>
+    <div class="brand-text">
+      <h1 class="brand-title">MediFlow HMS</h1>
+      <span class="brand-subtitle">Clinical Admin</span>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav class="sidebar-nav">
+    <ul class="nav-list">
+      <!-- Dashboard (Active Example) -->
+      <li class="nav-item">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link active">
+          <mat-icon>dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/patients" routerLinkActive="active" class="nav-link">
+          <mat-icon>person_outline</mat-icon>
+          <span>Patients</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/doctors" routerLinkActive="active" class="nav-link">
+          <mat-icon>medical_services</mat-icon>
+          <span>Doctors</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/appointments" routerLinkActive="active" class="nav-link">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Appointments</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/departments" routerLinkActive="active" class="nav-link">
+          <mat-icon>account_tree</mat-icon>
+          <span>Departments</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Divider -->
+    <hr class="nav-divider" />
+
+    <!-- Bottom Navigation -->
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a routerLink="/users" routerLinkActive="active" class="nav-link">
+          <mat-icon>people_outline</mat-icon>
+          <span>Users</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/settings" routerLinkActive="active" class="nav-link">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <!-- <a (click)="logout()" class="nav-link logout-link">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </a> -->
+      </li>
+    </ul>
+  </nav>
+</aside>

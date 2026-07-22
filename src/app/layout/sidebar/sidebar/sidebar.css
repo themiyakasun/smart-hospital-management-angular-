@@ -1,0 +1,157 @@
+/* Sidebar Container */
+.sidebar {
+ width: 260px;
+ height: 100vh;
+ background-color: #ffffff;
+ border-right: 1px solid #e5e7eb;
+ display: flex;
+ flex-direction: column;
+ font-family: Roboto, "Helvetica Neue", sans-serif;
+ box-sizing: border-box;
+}
+
+/* Header & Brand */
+.sidebar-header {
+ display: flex;
+ align-items: center;
+ padding: 24px 20px;
+ gap: 12px;
+ margin-bottom: 8px;
+}
+
+.logo-container {
+ background-color: #0052cc;
+ color: #ffffff;
+ width: 44px;
+ height: 44px;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-shrink: 0;
+}
+
+.logo-icon {
+ font-size: 26px;
+ width: 26px;
+ height: 26px;
+}
+
+.brand-text {
+ display: flex;
+ flex-direction: column;
+}
+
+.brand-title {
+ font-size: 18px;
+ font-weight: 700;
+ color: #0052cc;
+ margin: 0 0 2px 0;
+ letter-spacing: 0.3px;
+}
+
+.brand-subtitle {
+ font-size: 13px;
+ font-weight: 500;
+ color: #6b7280;
+}
+
+/* Navigation Container */
+.sidebar-nav {
+ flex: 1;
+ padding: 0 16px;
+ overflow-y: auto;
+ display: flex;
+ flex-direction: column;
+}
+
+/* Hide scrollbar for a cleaner look */
+.sidebar-nav::-webkit-scrollbar {
+ display: none;
+}
+
+.sidebar-nav {
+ -ms-overflow-style: none;
+ scrollbar-width: none;
+}
+
+/* Lists & Items */
+.nav-list {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ display: flex;
+ flex-direction: column;
+ gap: 4px;
+}
+
+.nav-link {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ padding: 12px 16px;
+ text-decoration: none;
+ color: #4b5563;
+ font-size: 14px;
+ font-weight: 500;
+ border-radius: 8px;
+ position: relative;
+ transition: all 0.2s ease;
+ cursor: pointer;
+}
+
+.nav-link mat-icon {
+ font-size: 22px;
+ width: 22px;
+ height: 22px;
+ color: #6b7280;
+ transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+ background-color: #f9fafb;
+}
+
+/* Active State Styling */
+.nav-link.active {
+ background-color: #edf2fa;
+ color: #0052cc;
+ font-weight: 600;
+}
+
+.nav-link.active mat-icon {
+ color: #0052cc;
+}
+
+/* Active Right Border Accent */
+.nav-link.active::after {
+ content: '';
+ position: absolute;
+ right: 0;
+ top: 0;
+ bottom: 0;
+ width: 4px;
+ background-color: #0052cc;
+ border-top-right-radius: 8px;
+ border-bottom-right-radius: 8px;
+}
+
+/* Divider */
+.nav-divider {
+ border: none;
+ border-top: 1px solid #e5e7eb;
+ margin: 16px 0;
+}
+
+/* Logout Specific Styling */
+.logout-link {
+ color: #d32f2f;
+}
+
+.logout-link mat-icon {
+ color: #d32f2f;
+}
+
+.logout-link:hover {
+ background-color: #fdecea;
+}

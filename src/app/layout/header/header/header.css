@@ -1,0 +1,129 @@
+/* Navbar Container */
+.navbar {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ height: 72px;
+ padding: 0 24px;
+ background-color: #ffffff;
+ border-bottom: 1px solid #e5e7eb;
+ font-family: Roboto, "Helvetica Neue", sans-serif;
+ box-sizing: border-box;
+}
+
+/* Search Bar */
+.search-container {
+ display: flex;
+ align-items: center;
+ background-color: #eaf0fb;
+ padding: 10px 16px;
+ border-radius: 24px;
+ width: 420px;
+ transition: background-color 0.2s ease;
+}
+
+.search-container:focus-within {
+ background-color: #e2eaf7;
+}
+
+.search-icon {
+ color: #5f6a7d;
+ font-size: 20px;
+ width: 20px;
+ height: 20px;
+ margin-right: 12px;
+}
+
+.search-input {
+ border: none;
+ background: transparent;
+ outline: none;
+ width: 100%;
+ font-size: 14px;
+ color: #374151;
+}
+
+.search-input::placeholder {
+ color: #8c98a9;
+ font-weight: 400;
+}
+
+/* Right Actions Container */
+.navbar-actions {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+}
+
+/* Icon Group */
+.icon-group {
+ display: flex;
+ align-items: center;
+ gap: 4px;
+}
+
+.action-btn {
+ color: #0a1f44 !important;
+}
+
+.action-btn mat-icon {
+ font-size: 22px;
+ width: 22px;
+ height: 22px;
+}
+
+/* Vertical Divider */
+.divider {
+ width: 1px;
+ height: 32px;
+ background-color: #d1d5db;
+ margin: 0 8px;
+}
+
+/* User Profile */
+.user-profile {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ cursor: pointer;
+ padding: 4px;
+ border-radius: 8px;
+ transition: background-color 0.2s ease;
+}
+
+.user-profile:hover {
+ background-color: #f9fafb;
+}
+
+.user-info {
+ display: flex;
+ flex-direction: column;
+ text-align: right;
+}
+
+.user-name {
+ font-size: 14px;
+ font-weight: 700;
+ color: #0a1f44;
+ margin-bottom: 2px;
+}
+
+.user-role {
+ font-size: 10px;
+ font-weight: 600;
+ color: #8c98a9;
+ letter-spacing: 0.5px;
+ text-transform: uppercase;
+}
+
+/* User Avatar */
+.user-avatar {
+ width: 40px;
+ height: 40px;
+ border-radius: 50%;
+ object-fit: cover;
+ border: 2px solid #0052cc;
+ padding: 2px;
+ /* Creates the gap between image and border */
+ background-color: #ffffff;
+}
