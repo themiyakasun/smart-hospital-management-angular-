@@ -1,19 +1,37 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Service, signal } from '@angular/core';
 import { RegisterCredentialsModel } from '../models/register-credentials.model';
 import { RegisterResponseModel } from '../models/register-response.model';
 import { LoginCredentialsModel } from '../models/login-credentials.model';
 import { LoginResponseModel } from '../models/login-response.model';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Service()
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
+
+  isAuthenticated = signal<boolean>(this.hasToken());
 
   registerUser(payload: RegisterCredentialsModel) {
     return this.http.post<RegisterResponseModel>('/api/auth/register', payload);
   }
 
   loginUser(payload: LoginCredentialsModel) {
-    return this.http.post<LoginResponseModel>('/api/auth/login', payload);
+    return this.http.post<LoginResponseModel>('/api/auth/login', payload).pipe(
+      tap((response) => {
+        localStorage.setItem('access_token', response.accessToken);
+        this.isAuthenticated.set(true);
+      }),
+    );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('access_token');
   }
 }
