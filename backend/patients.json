@@ -1,0 +1,19 @@
+[
+  {
+    "id": "pat-2",
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@example.com",
+    "phone": "+1-555-0189",
+    "age": 29,
+    "gender": "Female",
+    "bloodGroup": "A+",
+    "address": "100 Baker Street, London",
+    "assignedDoctorId": "doc-2",
+    "assignedDoctorName": "Dr. Robert Chen",
+    "departmentId": "dep-2",
+    "departmentName": "Neurology",
+    "status": "Outpatient",
+    "createdAt": "2026-07-21T14:30:00.000Z"
+  }
+]

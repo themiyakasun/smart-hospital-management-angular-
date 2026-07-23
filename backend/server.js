@@ -14,6 +14,7 @@ app.use(express.json());
 const USERS_FILE = path.join(__dirname, 'users.json');
 const DEPARTMENTS_FILE = path.join(__dirname, 'departments.json');
 const DOCTORS_FILE = path.join(__dirname, 'doctors.json');
+const PATIENTS_FILE = path.join(__dirname, 'patients.json');
 
 // JWT Secrets
 const ACCESS_TOKEN_SECRET = 'temporary_access_token_secret_key_12345';
@@ -58,6 +59,43 @@ const INITIAL_DOCTORS = [
       { day: 'Tuesday', startTime: '10:00', endTime: '16:00' },
       { day: 'Thursday', startTime: '10:00', endTime: '16:00' }
     ]
+  }
+];
+
+const INITIAL_PATIENTS = [
+  {
+    id: 'pat-1',
+    firstName: 'Michael',
+    lastName: 'Brown',
+    email: 'michael.brown@example.com',
+    phone: '+1-555-0122',
+    age: 45,
+    gender: 'Male',
+    bloodGroup: 'O+',
+    address: '742 Evergreen Terrace, Springfield',
+    assignedDoctorId: 'doc-1',
+    assignedDoctorName: 'Dr. Sarah Jenkins',
+    departmentId: 'dep-1',
+    departmentName: 'Cardiology',
+    status: 'Admitted',
+    createdAt: '2026-07-20T10:00:00.000Z'
+  },
+  {
+    id: 'pat-2',
+    firstName: 'Emily',
+    lastName: 'Davis',
+    email: 'emily.davis@example.com',
+    phone: '+1-555-0189',
+    age: 29,
+    gender: 'Female',
+    bloodGroup: 'A+',
+    address: '100 Baker Street, London',
+    assignedDoctorId: 'doc-2',
+    assignedDoctorName: 'Dr. Robert Chen',
+    departmentId: 'dep-2',
+    departmentName: 'Neurology',
+    status: 'Outpatient',
+    createdAt: '2026-07-21T14:30:00.000Z'
   }
 ];
 
@@ -240,13 +278,11 @@ app.use('/api/auth', authRouter);
 // ==========================================
 const departmentsRouter = express.Router();
 
-// Get all departments
 departmentsRouter.get('/', (req, res) => {
   const departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
   res.status(200).json(departments);
 });
 
-// Get department by ID
 departmentsRouter.get('/:id', (req, res) => {
   const departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
   const department = departments.find(d => d.id === req.params.id);
@@ -257,7 +293,6 @@ departmentsRouter.get('/:id', (req, res) => {
   res.status(200).json(department);
 });
 
-// Create department
 departmentsRouter.post('/', (req, res) => {
   const { name, description } = req.body;
 
@@ -279,7 +314,6 @@ departmentsRouter.post('/', (req, res) => {
   res.status(201).json(newDepartment);
 });
 
-// Update department
 departmentsRouter.put('/:id', (req, res) => {
   const { name, description } = req.body;
   const departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
@@ -313,7 +347,6 @@ departmentsRouter.put('/:id', (req, res) => {
   res.status(200).json(departments[index]);
 });
 
-// Delete department
 departmentsRouter.delete('/:id', (req, res) => {
   let departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
   const exists = departments.some(d => d.id === req.params.id);
@@ -335,7 +368,6 @@ app.use('/api/departments', departmentsRouter);
 // ==========================================
 const doctorsRouter = express.Router();
 
-// Get all doctors (supports query filters: ?departmentId=... or ?specialization=... or ?search=...)
 doctorsRouter.get('/', (req, res) => {
   let doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
   const { departmentId, specialization, search } = req.query;
@@ -362,7 +394,6 @@ doctorsRouter.get('/', (req, res) => {
   res.status(200).json(doctors);
 });
 
-// Get doctor by ID
 doctorsRouter.get('/:id', (req, res) => {
   const doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
   const doctor = doctors.find(d => d.id === req.params.id);
@@ -374,7 +405,6 @@ doctorsRouter.get('/:id', (req, res) => {
   res.status(200).json(doctor);
 });
 
-// Create new doctor
 doctorsRouter.post('/', (req, res) => {
   const { firstName, lastName, email, phone, specialization, departmentId, availability } = req.body;
 
@@ -411,7 +441,6 @@ doctorsRouter.post('/', (req, res) => {
   res.status(201).json(newDoctor);
 });
 
-// Update doctor
 doctorsRouter.put('/:id', (req, res) => {
   const doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
   const index = doctors.findIndex(d => d.id === req.params.id);
@@ -447,7 +476,6 @@ doctorsRouter.put('/:id', (req, res) => {
   res.status(200).json(doctors[index]);
 });
 
-// Delete doctor
 doctorsRouter.delete('/:id', (req, res) => {
   let doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
   const exists = doctors.some(d => d.id === req.params.id);
@@ -463,6 +491,202 @@ doctorsRouter.delete('/:id', (req, res) => {
 });
 
 app.use('/api/doctors', doctorsRouter);
+
+// ==========================================
+// 4. PATIENTS ROUTER (/api/patients)
+// ==========================================
+const patientsRouter = express.Router();
+
+// Get all patients (supports query filters: ?search=..., ?status=..., ?departmentId=...)
+patientsRouter.get('/', (req, res) => {
+  let patients = readData(PATIENTS_FILE, INITIAL_PATIENTS);
+  const { search, status, departmentId } = req.query;
+
+  if (departmentId) {
+    patients = patients.filter(p => p.departmentId === departmentId);
+  }
+
+  if (status) {
+    patients = patients.filter(p => p.status.toLowerCase() === String(status).toLowerCase());
+  }
+
+  if (search) {
+    const query = String(search).toLowerCase().trim();
+    patients = patients.filter(p =>
+      p.firstName.toLowerCase().includes(query) ||
+      p.lastName.toLowerCase().includes(query) ||
+      `${p.firstName} ${p.lastName}`.toLowerCase().includes(query) ||
+      (p.email && p.email.toLowerCase().includes(query)) ||
+      (p.phone && p.phone.includes(query)) ||
+      (p.bloodGroup && p.bloodGroup.toLowerCase().includes(query)) ||
+      (p.assignedDoctorName && p.assignedDoctorName.toLowerCase().includes(query)) ||
+      (p.id && p.id.toLowerCase().includes(query))
+    );
+  }
+
+  res.status(200).json(patients);
+});
+
+// Get patient by ID
+patientsRouter.get('/:id', (req, res) => {
+  const patients = readData(PATIENTS_FILE, INITIAL_PATIENTS);
+  const patient = patients.find(p => p.id === req.params.id);
+
+  if (!patient) {
+    return res.status(404).json({ message: 'Patient not found' });
+  }
+
+  res.status(200).json(patient);
+});
+
+// Create new patient
+patientsRouter.post('/', (req, res) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    age,
+    gender,
+    bloodGroup,
+    address,
+    assignedDoctorId,
+    departmentId,
+    status
+  } = req.body;
+
+  if (!firstName || !lastName || !email || !phone || !age || !gender || !bloodGroup) {
+    return res.status(400).json({
+      message: 'Required fields: firstName, lastName, email, phone, age, gender, bloodGroup'
+    });
+  }
+
+  let assignedDoctorName = '';
+  let departmentName = '';
+
+  if (assignedDoctorId) {
+    const doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
+    const doctor = doctors.find(d => d.id === assignedDoctorId);
+    if (doctor) {
+      assignedDoctorName = `Dr. ${doctor.firstName} ${doctor.lastName}`;
+      if (!departmentId) {
+        departmentId = doctor.departmentId;
+        departmentName = doctor.departmentName;
+      }
+    }
+  }
+
+  if (departmentId && !departmentName) {
+    const departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
+    const department = departments.find(d => d.id === departmentId);
+    if (department) {
+      departmentName = department.name;
+    }
+  }
+
+  const patients = readData(PATIENTS_FILE, INITIAL_PATIENTS);
+  const newPatient = {
+    id: `pat-${Date.now()}`,
+    firstName,
+    lastName,
+    email: email.toLowerCase().trim(),
+    phone,
+    age: Number(age),
+    gender,
+    bloodGroup,
+    address: address || '',
+    assignedDoctorId: assignedDoctorId || '',
+    assignedDoctorName,
+    departmentId: departmentId || '',
+    departmentName,
+    status: status || 'Admitted',
+    createdAt: new Date().toISOString()
+  };
+
+  patients.push(newPatient);
+  writeData(PATIENTS_FILE, patients);
+
+  console.log(`[Patient:Create] Registered patient ${firstName} ${lastName}`);
+  res.status(201).json(newPatient);
+});
+
+// Update patient
+patientsRouter.put('/:id', (req, res) => {
+  const patients = readData(PATIENTS_FILE, INITIAL_PATIENTS);
+  const index = patients.findIndex(p => p.id === req.params.id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Patient not found' });
+  }
+
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    age,
+    gender,
+    bloodGroup,
+    address,
+    assignedDoctorId,
+    departmentId,
+    status
+  } = req.body;
+
+  let assignedDoctorName = patients[index].assignedDoctorName;
+  let departmentName = patients[index].departmentName;
+
+  if (assignedDoctorId && assignedDoctorId !== patients[index].assignedDoctorId) {
+    const doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
+    const doctor = doctors.find(d => d.id === assignedDoctorId);
+    if (doctor) {
+      assignedDoctorName = `Dr. ${doctor.firstName} ${doctor.lastName}`;
+    }
+  }
+
+  if (departmentId && departmentId !== patients[index].departmentId) {
+    const departments = readData(DEPARTMENTS_FILE, INITIAL_DEPARTMENTS);
+    const department = departments.find(d => d.id === departmentId);
+    if (department) {
+      departmentName = department.name;
+    }
+  }
+
+  patients[index] = {
+    ...patients[index],
+    ...(firstName && { firstName }),
+    ...(lastName && { lastName }),
+    ...(email && { email: email.toLowerCase().trim() }),
+    ...(phone && { phone }),
+    ...(age !== undefined && { age: Number(age) }),
+    ...(gender && { gender }),
+    ...(bloodGroup && { bloodGroup }),
+    ...(address !== undefined && { address }),
+    ...(assignedDoctorId !== undefined && { assignedDoctorId, assignedDoctorName }),
+    ...(departmentId !== undefined && { departmentId, departmentName }),
+    ...(status && { status })
+  };
+
+  writeData(PATIENTS_FILE, patients);
+  res.status(200).json(patients[index]);
+});
+
+// Delete patient
+patientsRouter.delete('/:id', (req, res) => {
+  let patients = readData(PATIENTS_FILE, INITIAL_PATIENTS);
+  const exists = patients.some(p => p.id === req.params.id);
+
+  if (!exists) {
+    return res.status(404).json({ message: 'Patient not found' });
+  }
+
+  patients = patients.filter(p => p.id !== req.params.id);
+  writeData(PATIENTS_FILE, patients);
+
+  res.status(200).json({ message: 'Patient deleted successfully' });
+});
+
+app.use('/api/patients', patientsRouter);
 
 // Profile Endpoint
 app.get('/api/profile', authenticateToken, (req, res) => {
@@ -487,5 +711,8 @@ app.listen(PORT, () => {
   console.log(` Doctor Endpoints:`);
   console.log(`   GET/POST http://localhost:${PORT}/api/doctors`);
   console.log(`   GET/PUT/DELETE http://localhost:${PORT}/api/doctors/:id`);
+  console.log(` Patient Endpoints:`);
+  console.log(`   GET/POST http://localhost:${PORT}/api/patients`);
+  console.log(`   GET/PUT/DELETE http://localhost:${PORT}/api/patients/:id`);
   console.log(`==================================================`);
 });

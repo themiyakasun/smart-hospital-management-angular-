@@ -1,0 +1,98 @@
+<div class="dialog-header">
+  <h2 mat-dialog-title>Add New Patient</h2>
+  <button mat-icon-button mat-dialog-close class="close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="custom-scrollbar">
+  <form [formGroup]="patientForm" class="dialog-form">
+    <!-- Personal & Contact Information -->
+    <div class="form-section-title">Personal Information</div>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="e.g. Alice" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="e.g. Johnson" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="e.g. alice.j@email.com" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" placeholder="e.g. +1 234 567 8900" />
+      </mat-form-field>
+    </div>
+
+    <!-- Demographics -->
+    <div class="form-grid demographics-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" formControlName="age" placeholder="e.g. 34" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          @for (gender of genders; track gender) {
+            <mat-option [value]="gender">{{ gender }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Blood Group</mat-label>
+        <mat-select formControlName="bloodGroup">
+          @for (bg of bloodGroups; track bg) {
+            <mat-option [value]="bg">{{ bg }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Address (Full Width) -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Residential Address</mat-label>
+      <textarea
+        matInput
+        formControlName="address"
+        rows="2"
+        placeholder="Enter full address"
+      ></textarea>
+    </mat-form-field>
+
+    <!-- Clinical Details Section -->
+    <div class="form-section-title">Clinical Assignment</div>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Assign Department</mat-label>
+        <mat-select formControlName="departmentId">
+          @for (dept of departments(); track dept.id) {
+            <mat-option [value]="dept.id">{{ dept.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Assign Doctor</mat-label>
+        <mat-select formControlName="assignedDoctorId">
+          @for (doc of doctors(); track doc.id) {
+            <mat-option [value]="doc.id">{{ doc.firstName }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="submit()">Register Patient</button>
+</mat-dialog-actions>

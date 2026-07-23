@@ -1,0 +1,166 @@
+/* --- Table --- */
+.table-container {
+ background: white;
+ border-radius: 12px;
+ border: 1px solid #e2e8f0;
+ overflow: hidden;
+ margin-bottom: 24px;
+}
+
+.custom-table {
+ width: 100%;
+ border-collapse: collapse;
+ text-align: left;
+}
+
+.custom-table th {
+ background-color: #f8fafc;
+ color: #475569;
+ font-size: 11px;
+ font-weight: 700;
+ padding: 16px;
+ border-bottom: 1px solid #e2e8f0;
+}
+
+.custom-table td {
+ padding: 16px;
+ border-bottom: 1px solid #e2e8f0;
+ font-size: 13px;
+ color: #0f172a;
+ vertical-align: middle;
+}
+
+.custom-table tr:last-child td {
+ border-bottom: none;
+}
+
+.sort-icon {
+ font-size: 14px;
+ width: 14px;
+ height: 14px;
+ vertical-align: middle;
+ color: #94a3b8;
+}
+
+/* Table Cells Specifics */
+.patient-name-cell {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+}
+
+.avatar-initials {
+ width: 36px;
+ height: 36px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 13px;
+ font-weight: 700;
+ color: #0f172a;
+}
+
+.name-info {
+ display: flex;
+ flex-direction: column;
+}
+
+.full-name {
+ font-weight: 700;
+ color: #0f172a;
+}
+
+.email {
+ font-size: 12px;
+ color: #64748b;
+}
+
+.age-sex {
+ display: flex;
+ flex-direction: column;
+}
+
+.date-cell {
+ display: flex;
+ flex-direction: column;
+}
+
+.font-medium {
+ font-weight: 600;
+}
+
+.text-gray-500 {
+ color: #64748b;
+}
+
+.doctor-cell {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+}
+
+.doc-dot {
+ width: 10px;
+ height: 10px;
+ border-radius: 4px;
+}
+
+.doc-name {
+ font-weight: 500;
+}
+
+/* Status Badges */
+.status-badge {
+ font-size: 10px;
+ font-weight: 800;
+ padding: 4px 10px;
+ border-radius: 4px;
+ letter-spacing: 0.5px;
+}
+
+.recovered {
+ background-color: #d1fae5;
+ color: #059669;
+}
+
+.critical {
+ background-color: #fee2e2;
+ color: #dc2626;
+}
+
+.in-treatment {
+ background-color: #dbeafe;
+ color: #2563eb;
+}
+
+.consultation {
+ background-color: #e0e7ff;
+ color: #4f46e5;
+}
+
+/* Actions */
+.text-right {
+ text-align: right;
+}
+
+.actions-cell {
+ white-space: nowrap;
+}
+
+.action-btn {
+ transform: scale(0.85);
+ margin-left: -4px;
+}
+
+.action-btn.text-blue {
+ color: #2563eb;
+}
+
+.action-btn.text-green {
+ color: #059669;
+}
+
+.action-btn.text-red {
+ color: #dc2626;
+}

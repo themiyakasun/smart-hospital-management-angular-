@@ -1,0 +1,87 @@
+<table class="custom-table">
+  <thead>
+    <tr>
+      <th>CONTACT <mat-icon class="sort-icon">unfold_more</mat-icon></th>
+      <th>NAME</th>
+      <th>AGE/<br />GENDER</th>
+      <th>ASSIGNED<br />DOCTOR & DEPT</th>
+      <th>STATUS</th>
+      <th>REGISTERED<br />DATE</th>
+      <th class="text-right">ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (patient of patients(); track $index) {
+      <tr>
+        <td>
+          <div class="date-cell">
+            <span class="font-medium text-gray-500">{{ patient.phone }}</span>
+            <span class="text-gray-500" style="font-size: 11px"
+              >Blood: {{ patient.bloodGroup }}</span
+            >
+          </div>
+        </td>
+
+        <!-- Dynamic Name, Email, and Initials -->
+        <td>
+          <div class="patient-name-cell">
+            <div class="avatar-initials" style="background-color: #e0e7ff; color: #3730a3">
+              {{ patient.firstName | slice: 0 : 1 }}{{ patient.lastName | slice: 0 : 1 }}
+            </div>
+            <div class="name-info">
+              <span class="full-name">{{ patient.firstName }} {{ patient.lastName }}</span>
+              <span class="email">{{ patient.email }}</span>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <div class="age-sex">
+            <span class="font-medium">{{ patient.age }} /</span>
+            <span class="text-gray-500">{{ patient.gender }}</span>
+          </div>
+        </td>
+
+        <td>
+          <div
+            class="doctor-cell"
+            style="flex-direction: column; align-items: flex-start; gap: 2px"
+          >
+            <div style="display: flex; align-items: center; gap: 8px">
+              <span class="doc-dot" style="background-color: #3b82f6"></span>
+              <span class="doc-name">{{ patient.assignedDoctorName }}</span>
+            </div>
+            <span class="text-gray-500" style="font-size: 11px; margin-left: 18px">
+              {{ patient.departmentName }}
+            </span>
+          </div>
+        </td>
+
+        <td>
+          <span class="status-badge" [class]="patient.status.toLowerCase()">
+            {{ patient.status }}
+          </span>
+        </td>
+
+        <td>
+          <div class="date-cell">
+            <span class="font-medium">{{ patient.createdAt | date: 'MMM d' }},</span>
+            <span class="text-gray-500">{{ patient.createdAt | date: 'y' }}</span>
+          </div>
+        </td>
+
+        <td class="actions-cell text-right">
+          <button mat-icon-button class="action-btn text-blue">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button class="action-btn text-green">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button class="action-btn text-red" (click)="delete($event, patient.id)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

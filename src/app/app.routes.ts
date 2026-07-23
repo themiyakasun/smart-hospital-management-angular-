@@ -7,6 +7,7 @@ import { Departments } from './features/departments/pages/departments/department
 import { roleGuard } from './core/guards/role-guard';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { Doctors } from './features/doctor/pages/doctors/doctors';
+import { Patients } from './features/patient/pages/patients/patients';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
@@ -24,6 +25,7 @@ export const routes: Routes = [
         data: { roles: ['doctor', 'nurse', 'administrator'] },
       },
       { path: 'doctors', component: Doctors },
+      { path: 'patients', component: Patients },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

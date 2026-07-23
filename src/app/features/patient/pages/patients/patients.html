@@ -1,0 +1,114 @@
+<div class="page-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">Dashboard / <span class="current-path">Patient List</span></div>
+      <h1 class="page-title">Patient Management</h1>
+      <p class="page-subtitle">Manage and monitor all registered clinic patients</p>
+    </div>
+    <div class="header-actions">
+      <button mat-stroked-button class="icon-btn export-btn">
+        <mat-icon>download</mat-icon> Export
+      </button>
+      <button mat-flat-button class="add-btn" (click)="openCreateForm()">
+        <mat-icon>person_add</mat-icon> Add New Patient
+      </button>
+    </div>
+  </div>
+
+  <!-- Metrics Cards -->
+  <div class="metrics-grid">
+    <!-- Total Patients -->
+    <div class="metric-card white-card">
+      <div class="metric-icon-wrapper bg-blue-light">
+        <mat-icon class="text-blue">people</mat-icon>
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">Total Patients</span>
+        <span class="metric-value">12,845</span>
+      </div>
+    </div>
+
+    <!-- New Admissions -->
+    <div class="metric-card white-card">
+      <div class="metric-icon-wrapper bg-green-light">
+        <mat-icon class="text-green">assignment_turned_in</mat-icon>
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">New Admissions</span>
+        <span class="metric-value">124</span>
+      </div>
+    </div>
+
+    <!-- Hospital Capacity -->
+    <div class="metric-card blue-card">
+      <div class="capacity-info">
+        <span class="capacity-label">Hospital Capacity</span>
+        <span class="capacity-value">88.5%</span>
+        <span class="capacity-subtext">14 beds remaining in ICU</span>
+      </div>
+      <button mat-flat-button class="analytics-btn">View Analytics</button>
+    </div>
+  </div>
+
+  <!-- Filters & Sorting -->
+  <div class="filters-bar">
+    <div class="filters-left">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
+        <mat-icon matPrefix>filter_list</mat-icon>
+        <mat-select value="all-status">
+          <mat-option value="all-status">All Statuses</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
+        <mat-icon matPrefix>account_tree</mat-icon>
+        <mat-select value="all-depts">
+          <mat-option value="all-depts">All Departments</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-stroked-button class="square-btn"><mat-icon>calendar_today</mat-icon></button>
+      <button mat-stroked-button class="square-btn"><mat-icon>refresh</mat-icon></button>
+    </div>
+
+    <div class="filters-right">
+      <span class="sort-label">Sort by:</span>
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        class="custom-select sort-select"
+      >
+        <mat-select value="recent">
+          <mat-option value="recent">Recently Visited</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <app-patient-table [patients]="patients()" (deletedClick)="delete($event)"></app-patient-table>
+  </div>
+
+  <div class="pagination-footer">
+    <div class="showing-text">
+      Showing <strong>1 - 10</strong> of <strong>1,284</strong> entries
+    </div>
+    <div class="pagination-controls">
+      <button class="page-btn"><mat-icon>first_page</mat-icon></button>
+      <button class="page-btn"><mat-icon>chevron_left</mat-icon></button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <span class="page-dots">...</span>
+      <button class="page-btn">129</button>
+      <button class="page-btn"><mat-icon>chevron_right</mat-icon></button>
+      <button class="page-btn"><mat-icon>last_page</mat-icon></button>
+    </div>
+  </div>
+
+  <!-- Floating Action Button -->
+  <button mat-fab color="primary" class="floating-add">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
