@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -23,14 +23,19 @@ import { DoctorService } from '../../services/doctor.service';
   templateUrl: './doctor-form.html',
   styleUrl: './doctor-form.css',
 })
-export class DoctorForm {
+export class DoctorForm implements OnInit {
   departmentService = inject(DepartmentService);
   doctorService = inject(DoctorService);
   departments = this.departmentService.departments;
   private formBuilder = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<DoctorForm>);
-
   daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  ngOnInit(): void {
+    if (this.departments().length === 0) {
+      this.departmentService.getDepartments();
+    }
+  }
 
   doctorForm: FormGroup = this.formBuilder.group({
     firstName: ['', Validators.required],

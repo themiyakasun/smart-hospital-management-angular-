@@ -335,16 +335,28 @@ app.use('/api/departments', departmentsRouter);
 // ==========================================
 const doctorsRouter = express.Router();
 
-// Get all doctors (supports query filters: ?departmentId=... or ?specialization=...)
+// Get all doctors (supports query filters: ?departmentId=... or ?specialization=... or ?search=...)
 doctorsRouter.get('/', (req, res) => {
   let doctors = readData(DOCTORS_FILE, INITIAL_DOCTORS);
-  const { departmentId, specialization } = req.query;
+  const { departmentId, specialization, search } = req.query;
 
   if (departmentId) {
     doctors = doctors.filter(d => d.departmentId === departmentId);
   }
   if (specialization) {
     doctors = doctors.filter(d => d.specialization.toLowerCase() === String(specialization).toLowerCase());
+  }
+  if (search) {
+    const query = String(search).toLowerCase().trim();
+    doctors = doctors.filter(d => 
+      d.firstName.toLowerCase().includes(query) ||
+      d.lastName.toLowerCase().includes(query) ||
+      `${d.firstName} ${d.lastName}`.toLowerCase().includes(query) ||
+      d.specialization.toLowerCase().includes(query) ||
+      (d.departmentName && d.departmentName.toLowerCase().includes(query)) ||
+      (d.email && d.email.toLowerCase().includes(query)) ||
+      (d.id && d.id.toLowerCase().includes(query))
+    );
   }
 
   res.status(200).json(doctors);

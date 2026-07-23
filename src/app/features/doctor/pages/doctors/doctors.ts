@@ -8,6 +8,7 @@ import { DoctorService } from '../../services/doctor.service';
 import { DoctorCard } from '../../components/doctor-card/doctor-card';
 import { MatDialog } from '@angular/material/dialog';
 import { DoctorForm } from '../../components/doctor-form/doctor-form';
+import { DoctorFilter } from '../../components/doctor-filter/doctor-filter';
 
 @Component({
   selector: 'app-doctors',
@@ -18,6 +19,7 @@ import { DoctorForm } from '../../components/doctor-form/doctor-form';
     MatSelectModule,
     MatFormFieldModule,
     DoctorCard,
+    DoctorFilter,
   ],
   templateUrl: './doctors.html',
   styleUrl: './doctors.css',
@@ -37,5 +39,9 @@ export class Doctors implements OnInit {
       maxWidth: '95vw',
       disableClose: true,
     });
+  }
+
+  onFilterChange(filter: { departmentId: string; search: string }) {
+    this.doctorService.getDoctors(filter.departmentId, filter.search);
   }
 }

@@ -9,10 +9,16 @@ export class DoctorService {
   private http = inject(HttpClient);
   doctors = signal<DoctorModel[]>([]);
 
-  getDoctors(): void {
-    this.http.get<DoctorModel[]>('/api/doctors').subscribe({
+  getDoctors(departmentId?: string, search?: string): void {
+    const queryParts: string[] = [];
+    if (departmentId) queryParts.push(`departmentId=${encodeURIComponent(departmentId)}`);
+    if (search) queryParts.push(`search=${encodeURIComponent(search)}`);
+
+    const url = queryParts.length > 0 ? `/api/doctors?${queryParts.join('&')}` : '/api/doctors';
+
+    this.http.get<DoctorModel[]>(url).subscribe({
       next: (data) => this.doctors.set(data),
-      error: (error) => console.error('Faied to load doctors', error),
+      error: (error) => console.error('Failed to load doctors', error),
     });
   }
 

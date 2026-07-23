@@ -1,0 +1,27 @@
+<div class="filter-bar">
+  <!-- Left: Search -->
+  <div class="search-box">
+    <mat-icon class="search-icon">search</mat-icon>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search by name, specialty, or ID..."
+      (input)="onSearchInput($event)"
+    />
+  </div>
+
+  <!-- Right: Selects & Advanced Filter -->
+  <div class="filter-controls">
+    <div class="filter-group">
+      <span class="filter-label">DEPARTMENT:</span>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
+        <mat-select (selectionChange)="onDepartmentChange($event)">
+          <mat-option value="">All Departments</mat-option>
+          @for (department of departments(); track department.id) {
+            <mat-option [value]="department.id">{{ department.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

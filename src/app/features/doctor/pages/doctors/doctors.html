@@ -19,43 +19,7 @@
   </div>
 
   <!-- Filter Bar -->
-  <div class="filter-bar">
-    <!-- Left: Search -->
-    <div class="search-box">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input type="text" class="search-input" placeholder="Search by name, specialty, or ID..." />
-    </div>
-
-    <!-- Right: Selects & Advanced Filter -->
-    <div class="filter-controls">
-      <div class="filter-group">
-        <span class="filter-label">DEPARTMENT:</span>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
-          <mat-select value="all">
-            <mat-option value="all">All Departments</mat-option>
-            <mat-option value="cardiology">Cardiology</mat-option>
-            <mat-option value="neurology">Neurology</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">AVAILABILITY:</span>
-        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
-          <mat-select value="any">
-            <mat-option value="any">Any Status</mat-option>
-            <mat-option value="available">Available</mat-option>
-            <mat-option value="busy">In Consultation</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <button mat-stroked-button class="icon-outline-btn">
-        <mat-icon>filter_list</mat-icon>
-      </button>
-    </div>
-  </div>
-
+  <app-doctor-filter (filterChange)="onFilterChange($event)"></app-doctor-filter>
   <!-- Doctors Grid -->
   <div class="doctors-grid">
     <!-- Doctor Card 1 (Available) -->
