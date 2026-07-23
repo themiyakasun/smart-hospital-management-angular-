@@ -1,0 +1,22 @@
+[
+  {
+    "id": "dep-1",
+    "name": "Cardiology",
+    "description": "Specializing in heart, blood vessels, and cardiovascular health."
+  },
+  {
+    "id": "dep-2",
+    "name": "Neurology",
+    "description": "Expert diagnosis and care for disorders of the brain and nervous system."
+  },
+  {
+    "id": "dep-3",
+    "name": "Pediatrics",
+    "description": "Comprehensive medical care for infants, children, and adolescents."
+  },
+  {
+    "id": "dep-4",
+    "name": "Orthopedics",
+    "description": "Treatment for bones, joints, ligaments, tendons, and muscle conditions."
+  }
+]

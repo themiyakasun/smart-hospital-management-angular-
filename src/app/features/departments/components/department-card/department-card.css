@@ -1,0 +1,99 @@
+.dept-card {
+ border-radius: 12px !important;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+ border: 1px solid #f3f4f6;
+ transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dept-card:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+.dept-card mat-card-content {
+ padding: 24px !important;
+}
+
+.icon-wrapper {
+ width: 48px;
+ height: 48px;
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-bottom: 16px;
+}
+
+.icon-wrapper mat-icon {
+ font-size: 24px;
+ width: 24px;
+ height: 24px;
+}
+
+/* Icon Colors based on screenshot */
+.cardiology-icon {
+ background-color: #edf2fa;
+ color: #0052cc;
+}
+
+.pediatrics-icon {
+ background-color: #f4eefe;
+ color: #7c3aed;
+}
+
+.emergency-icon {
+ background-color: #fee2e2;
+ color: #dc2626;
+}
+
+.neurology-icon {
+ background-color: #e0f2fe;
+ color: #0284c7;
+}
+
+.oncology-icon {
+ background-color: #e0e7ff;
+ color: #4338ca;
+}
+
+.dept-name {
+ font-size: 18px;
+ font-weight: 600;
+ color: #0a1f44;
+ margin: 0 0 8px 0;
+}
+
+.dept-desc {
+ font-size: 14px;
+ color: #6b7280;
+ margin: 0;
+ line-height: 1.5;
+}
+
+.dept-card {
+ position: relative;
+ /* This is required for the absolute positioning of the button to work */
+ /* ... your existing card styles ... */
+}
+
+/* Delete Button Styling */
+.delete-btn {
+ position: absolute !important;
+ top: 8px;
+ right: 8px;
+ opacity: 0;
+ /* Hide by default for a cleaner look */
+ transition: opacity 0.2s ease, background-color 0.2s ease;
+ z-index: 2;
+ /* Ensures it stays above other content */
+}
+
+/* Show the delete button when the user hovers over the card */
+.dept-card:hover .delete-btn {
+ opacity: 1;
+}
+
+/* Optional: Slight background on hover for the delete button itself */
+.delete-btn:hover {
+ background-color: #fee2e2;
+}

@@ -1,1 +1,33 @@
-<p>departments works!</p>
+<div class="page-container">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">Organization / <span class="current-path">Departments</span></div>
+      <h1 class="page-title">Department Management</h1>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button class="add-btn" (click)="openCreateForm()">
+        <mat-icon>add</mat-icon> Add Department
+      </button>
+    </div>
+  </div>
+
+  <!-- Departments Grid (Simplified to Name & Description only) -->
+  <div class="departments-grid">
+    @for (department of departmentList(); track department.id) {
+      <app-department-card
+        [name]="department.name"
+        [description]="department.description"
+        (deleteClicked)="delete(department.id)"
+      ></app-department-card>
+    }
+    <!-- Create New Department Card -->
+    <div class="create-new-card" (click)="openCreateForm()">
+      <div class="create-icon-wrapper">
+        <mat-icon>add</mat-icon>
+      </div>
+      <h2 class="dept-name">Create New Department</h2>
+      <p class="dept-desc">Click to configure a new clinical unit</p>
+    </div>
+  </div>
+</div>

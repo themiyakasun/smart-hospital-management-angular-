@@ -1,0 +1,25 @@
+<!-- department-form.component.html -->
+<h2 mat-dialog-title>Create New Department</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="departmentForm" class="dialog-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Department Name</mat-label>
+      <input matInput formControlName="name" placeholder="e.g. Cardiology" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <!-- mat-dialog-close allows the cancel button to close the modal and return 'false' -->
+  <button mat-button mat-dialog-close>Cancel</button>
+
+  <button mat-flat-button color="primary" [disabled]="departmentForm.invalid" (click)="submit()">
+    Create
+  </button>
+</mat-dialog-actions>

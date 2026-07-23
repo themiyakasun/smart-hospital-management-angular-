@@ -1,0 +1,31 @@
+/* Container for the form to stack inputs vertically */
+.dialog-form {
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ /* Adds consistent space between the input fields */
+ margin-top: 12px;
+ /* Adds breathing room below the modal title */
+ min-width: 400px;
+ /* Ensures the modal has a good minimum width on desktop */
+}
+
+/* Force Angular Material form fields to take up the full width of the container */
+mat-form-field {
+ width: 100%;
+}
+
+/* Improve the textarea usability */
+textarea {
+ resize: vertical;
+ /* Allows the user to resize it up and down, but not sideways */
+ min-height: 80px;
+}
+
+/* Adjust the dialog actions (buttons) spacing */
+mat-dialog-actions {
+ padding-bottom: 16px;
+ padding-right: 16px;
+ margin-bottom: -8px;
+ /* Counteracts default Material dialog bottom padding if needed */
+}
