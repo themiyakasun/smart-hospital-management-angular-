@@ -1,0 +1,112 @@
+/* --- Dialog Structure --- */
+.dialog-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding-right: 16px;
+}
+
+.close-btn {
+ color: #64748b;
+}
+
+mat-dialog-content {
+ min-width: 600px;
+ max-width: 800px;
+ padding-top: 8px !important;
+}
+
+.dialog-form {
+ display: flex;
+ flex-direction: column;
+ gap: 24px;
+}
+
+/* --- Section Headers --- */
+.form-section-title {
+ font-size: 14px;
+ font-weight: 700;
+ color: #0f172a;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ border-bottom: 1px solid #e2e8f0;
+ padding-bottom: 8px;
+ margin-bottom: 8px;
+}
+
+.form-section-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: flex-end;
+ border-bottom: 1px solid #e2e8f0;
+ padding-bottom: 4px;
+ margin-bottom: 8px;
+}
+
+.form-section-header .form-section-title {
+ border-bottom: none;
+ padding-bottom: 0;
+ margin-bottom: 4px;
+}
+
+/* --- Grid Layouts --- */
+.form-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 0 16px;
+ /* 0 vertical gap (handled by material inputs), 16px horizontal */
+}
+
+mat-form-field {
+ width: 100%;
+}
+
+/* --- Dynamic Availability Row --- */
+.availability-container {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ background-color: #f8fafc;
+ padding: 16px;
+ border-radius: 8px;
+ border: 1px dashed #cbd5e1;
+}
+
+.availability-row {
+ display: flex;
+ align-items: flex-start;
+ gap: 12px;
+}
+
+/* Force specific widths for the schedule inputs */
+.flex-2 {
+ flex: 2;
+}
+
+.flex-1 {
+ flex: 1;
+}
+
+.remove-row-btn {
+ margin-top: 4px;
+ /* Align icon with the center of the inputs */
+}
+
+.dialog-actions {
+ padding: 16px 24px 24px 24px;
+ border-top: 1px solid #e2e8f0;
+}
+
+/* --- Custom Scrollbar for the Dialog --- */
+.custom-scrollbar::-webkit-scrollbar {
+ width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+ background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+ background-color: #cbd5e1;
+ border-radius: 10px;
+}

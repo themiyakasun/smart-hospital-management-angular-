@@ -1,0 +1,63 @@
+[
+  {
+    "id": "doc-1",
+    "firstName": "Sarah",
+    "lastName": "Jenkins",
+    "email": "sarah.jenkins@hospital.com",
+    "phone": "+1-555-0192",
+    "specialization": "Cardiologist",
+    "departmentId": "dep-1",
+    "departmentName": "Cardiology",
+    "availability": [
+      {
+        "day": "Monday",
+        "startTime": "09:00",
+        "endTime": "13:00"
+      },
+      {
+        "day": "Wednesday",
+        "startTime": "14:00",
+        "endTime": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "doc-2",
+    "firstName": "Robert",
+    "lastName": "Chen",
+    "email": "robert.chen@hospital.com",
+    "phone": "+1-555-0144",
+    "specialization": "Neurologist",
+    "departmentId": "dep-2",
+    "departmentName": "Neurology",
+    "availability": [
+      {
+        "day": "Tuesday",
+        "startTime": "10:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": "Thursday",
+        "startTime": "10:00",
+        "endTime": "16:00"
+      }
+    ]
+  },
+  {
+    "id": "doc-1784804200760",
+    "firstName": "test",
+    "lastName": "test",
+    "email": "test@gmail.com",
+    "phone": "438247832749382",
+    "specialization": "Cosmtetic",
+    "departmentId": "dep-2",
+    "departmentName": "Neurology",
+    "availability": [
+      {
+        "day": "Friday",
+        "startTime": "08:00",
+        "endTime": "17:00"
+      }
+    ]
+  }
+]

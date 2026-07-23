@@ -1,0 +1,29 @@
+<mat-card class="doc-card">
+  <div class="card-body">
+    <div class="doc-header">
+      <div class="doc-info">
+        <h2 class="doc-name">Dr. {{ firstName() }} {{ lastName() }}</h2>
+        <span class="doc-role">{{ departmentName() }}</span>
+      </div>
+    </div>
+
+    <div class="tags-container">
+      <span class="specialty-tag">{{ specialization() }}</span>
+    </div>
+
+    <div class="doc-stats">
+      <div class="stat-block">
+        <span class="stat-title">{{ phone() }}</span>
+        <span class="stat-value">{{ email() }}</span>
+      </div>
+      <div class="stat-block align-right">
+        <span class="stat-title">Availability</span>
+        @for (available of availability(); track $index) {
+          <span class="stat-value text-green"
+            >At {{ available.day }} from {{ available.startTime }} to {{ available.endTime }}</span
+          >
+        }
+      </div>
+    </div>
+  </div>
+</mat-card>

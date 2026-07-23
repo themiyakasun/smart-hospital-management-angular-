@@ -1,0 +1,108 @@
+<!-- doctor-form.component.html -->
+<div class="dialog-header">
+  <h2 mat-dialog-title>Add New Doctor</h2>
+  <button mat-icon-button mat-dialog-close class="close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="custom-scrollbar">
+  <form [formGroup]="doctorForm" class="dialog-form">
+    <!-- Personal Info Section -->
+    <div class="form-section-title">Personal Information</div>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="e.g. Julian" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="e.g. Vance" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" placeholder="e.g. +1 234 567 8900" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          placeholder="e.g. dr.vance@mediflow.com"
+        />
+      </mat-form-field>
+    </div>
+
+    <!-- Professional Info Section -->
+    <div class="form-section-title">Professional Details</div>
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="departmentId">
+          @for (dept of departments(); track dept.id) {
+            <mat-option [value]="dept.id">{{ dept.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Specialization / Tag</mat-label>
+        <input matInput formControlName="specialization" placeholder="e.g. COSMETIC DERM" />
+      </mat-form-field>
+    </div>
+
+    <!-- Dynamic Availability Section -->
+    <div class="form-section-header">
+      <div class="form-section-title">Weekly Availability</div>
+      <button mat-button color="primary" type="button" (click)="addAvailability()">
+        <mat-icon>add</mat-icon> Add Slot
+      </button>
+    </div>
+
+    <div formArrayName="availability" class="availability-container">
+      @for (schedule of availabilityControls; track $index) {
+        <div [formGroupName]="$index" class="availability-row">
+          <mat-form-field appearance="outline" class="flex-2">
+            <mat-label>Day</mat-label>
+            <mat-select formControlName="day">
+              @for (day of daysOfWeek; track day) {
+                <mat-option [value]="day">{{ day }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Start Time</mat-label>
+            <input matInput type="time" formControlName="startTime" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>End Time</mat-label>
+            <input matInput type="time" formControlName="endTime" />
+          </mat-form-field>
+
+          <!-- Only show the delete button if there is more than one row -->
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            class="remove-row-btn"
+            [disabled]="availabilityControls.length === 1"
+            (click)="removeAvailability($index)"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="submit()">Save Doctor</button>
+</mat-dialog-actions>

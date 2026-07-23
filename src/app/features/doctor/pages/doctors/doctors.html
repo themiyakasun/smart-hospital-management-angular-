@@ -1,0 +1,74 @@
+<div class="page-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="title-area">
+      <div class="breadcrumb">
+        Main <mat-icon class="breadcrumb-arrow">chevron_right</mat-icon>
+        <span class="current-path">Doctors Directory</span>
+      </div>
+      <h1 class="page-title">Doctor Directory</h1>
+      <p class="page-subtitle">
+        Manage and view specialized medical practitioners across all departments.
+      </p>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button class="add-btn" (click)="openCreateForm()">
+        <mat-icon>add</mat-icon> Add New Doctor
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <!-- Left: Search -->
+    <div class="search-box">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input type="text" class="search-input" placeholder="Search by name, specialty, or ID..." />
+    </div>
+
+    <!-- Right: Selects & Advanced Filter -->
+    <div class="filter-controls">
+      <div class="filter-group">
+        <span class="filter-label">DEPARTMENT:</span>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
+          <mat-select value="all">
+            <mat-option value="all">All Departments</mat-option>
+            <mat-option value="cardiology">Cardiology</mat-option>
+            <mat-option value="neurology">Neurology</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">AVAILABILITY:</span>
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="custom-select">
+          <mat-select value="any">
+            <mat-option value="any">Any Status</mat-option>
+            <mat-option value="available">Available</mat-option>
+            <mat-option value="busy">In Consultation</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <button mat-stroked-button class="icon-outline-btn">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Doctors Grid -->
+  <div class="doctors-grid">
+    <!-- Doctor Card 1 (Available) -->
+    @for (doctor of doctorsList(); track doctor.id) {
+      <app-doctor-card
+        [firstName]="doctor.firstName"
+        [lastName]="doctor.lastName"
+        [departmentName]="doctor.departmentName"
+        [specialization]="doctor.specialization"
+        [availability]="doctor.availability"
+        [email]="doctor.email"
+        [phone]="doctor.phone"
+      ></app-doctor-card>
+    }
+  </div>
+</div>

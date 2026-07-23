@@ -1,0 +1,143 @@
+/* --- Main Card Styling --- */
+.doc-card {
+ border-radius: 16px !important;
+ border: 1px solid #e2e8f0;
+ box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03) !important;
+ background: #ffffff;
+ padding: 0 !important;
+ display: flex;
+ flex-direction: column;
+ transition: transform 0.25s ease, box-shadow 0.25s ease;
+ overflow: hidden;
+}
+
+/* Lift up effect on hover */
+.doc-card:hover {
+ transform: translateY(-4px);
+ box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04) !important;
+ border-color: #cbd5e1;
+}
+
+.card-body {
+ padding: 24px;
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+}
+
+/* --- Header Area --- */
+.doc-header {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ margin-bottom: 20px;
+}
+
+.doc-info {
+ width: 100%;
+}
+
+.doc-name {
+ font-size: 19px;
+ font-weight: 800;
+ margin: 0 0 8px 0;
+ color: #0f172a;
+ letter-spacing: -0.01em;
+}
+
+/* Turned the role into a soft badge to make it pop */
+.doc-role {
+ display: inline-block;
+ font-size: 13px;
+ font-weight: 600;
+ color: #0284c7;
+ background-color: #e0f2fe;
+ padding: 4px 10px;
+ border-radius: 6px;
+}
+
+/* --- Specialty Tags --- */
+.tags-container {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 8px;
+ margin-bottom: 24px;
+}
+
+.specialty-tag {
+ background-color: #f1f5f9;
+ color: #475569;
+ font-size: 11px;
+ font-weight: 600;
+ padding: 6px 12px;
+ border-radius: 20px;
+ border: 1px solid #e2e8f0;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+}
+
+/* --- Stats Area (Contact & Availability) --- */
+.doc-stats {
+ display: flex;
+ justify-content: space-between;
+ border-top: 1px solid #f1f5f9;
+ padding-top: 20px;
+ margin-top: auto;
+ /* Pushes to the bottom if some cards are taller than others */
+ gap: 16px;
+}
+
+.stat-block {
+ display: flex;
+ flex-direction: column;
+ gap: 8px;
+ /* Adds breathing room between phone and email */
+ flex: 1;
+}
+
+.align-right {
+ text-align: right;
+ align-items: flex-end;
+}
+
+/* 
+  Left Side: Phone and Email 
+  Made them look like consistent contact lines instead of a mismatched label/value pair 
+*/
+.stat-title {
+ font-size: 13px;
+ color: #475569;
+ font-weight: 500;
+}
+
+.stat-value {
+ font-size: 13px;
+ color: #475569;
+ font-weight: 500;
+}
+
+/* 
+  Right Side: Availability 
+  Targeted specifically to style the "Availability" header and the time slots
+*/
+.align-right .stat-title {
+ font-size: 11px;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ color: #94a3b8;
+ font-weight: 700;
+ margin-bottom: 4px;
+}
+
+/* Turned the long availability text into neat green pill shapes */
+.align-right .text-green {
+ color: #059669;
+ background-color: #d1fae5;
+ padding: 6px 10px;
+ border-radius: 6px;
+ font-size: 12px;
+ font-weight: 600;
+ display: inline-block;
+ line-height: 1.4;
+ border: 1px solid #a7f3d0;
+}

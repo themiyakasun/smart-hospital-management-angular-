@@ -6,6 +6,7 @@ import { authGuard } from './core/guards/auth-guard';
 import { Departments } from './features/departments/pages/departments/departments';
 import { roleGuard } from './core/guards/role-guard';
 import { MainLayout } from './layout/main-layout/main-layout';
+import { Doctors } from './features/doctor/pages/doctors/doctors';
 
 export const routes: Routes = [
   { path: 'login', component: Login },
@@ -22,6 +23,7 @@ export const routes: Routes = [
         canActivate: [roleGuard],
         data: { roles: ['doctor', 'nurse', 'administrator'] },
       },
+      { path: 'doctors', component: Doctors },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
