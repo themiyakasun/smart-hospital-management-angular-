@@ -42,22 +42,5 @@
         "endTime": "16:00"
       }
     ]
-  },
-  {
-    "id": "doc-1784804200760",
-    "firstName": "test",
-    "lastName": "test",
-    "email": "test@gmail.com",
-    "phone": "438247832749382",
-    "specialization": "Cosmtetic",
-    "departmentId": "dep-2",
-    "departmentName": "Neurology",
-    "availability": [
-      {
-        "day": "Friday",
-        "startTime": "08:00",
-        "endTime": "17:00"
-      }
-    ]
   }
 ]

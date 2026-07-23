@@ -1,4 +1,13 @@
 <mat-card class="doc-card">
+  <button
+    mat-icon-button
+    color="warn"
+    class="delete-btn"
+    (click)="delete($event)"
+    matTooltip="Delete Doctor"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
   <div class="card-body">
     <div class="doc-header">
       <div class="doc-info">

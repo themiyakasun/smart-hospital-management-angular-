@@ -32,6 +32,7 @@
         [availability]="doctor.availability"
         [email]="doctor.email"
         [phone]="doctor.phone"
+        (deletedClick)="delete(doctor.id)"
       ></app-doctor-card>
     }
   </div>

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,4 +17,11 @@ export class DoctorCard {
   availability = input.required<{ day: string; startTime: string; endTime: string }[]>();
   email = input.required<string>();
   phone = input.required<string>();
+
+  deletedClick = output<void>();
+
+  delete(event: Event) {
+    event.stopPropagation();
+    this.deletedClick.emit();
+  }
 }
