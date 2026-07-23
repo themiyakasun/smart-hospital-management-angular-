@@ -94,5 +94,7 @@
 
 <mat-dialog-actions align="end" class="dialog-actions">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="primary" (click)="submit()">Register Patient</button>
+  <button mat-flat-button color="primary" (click)="submit()">
+    {{ isEditMode ? 'Edit Patient' : 'Add New Patient' }}
+  </button>
 </mat-dialog-actions>

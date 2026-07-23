@@ -74,7 +74,7 @@
           <button mat-icon-button class="action-btn text-blue">
             <mat-icon>visibility</mat-icon>
           </button>
-          <button mat-icon-button class="action-btn text-green">
+          <button mat-icon-button class="action-btn text-green" (click)="openEditForm(patient)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button class="action-btn text-red" (click)="delete($event, patient.id)">

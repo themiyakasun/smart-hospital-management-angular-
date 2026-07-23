@@ -36,7 +36,13 @@ export class PatientService {
   }
 
   updatePatient(payload: PatientPayloadModel, id: string) {
-    return this.http.put<PatientModel>(`/api/patients/${id}`, payload);
+    return this.http.put<PatientModel>(`/api/patients/${id}`, payload).pipe(
+      tap((updatedPatient) => {
+        this.patients.update((prev) =>
+          prev.map((patient) => (patient.id === id ? updatedPatient : patient)),
+        );
+      }),
+    );
   }
 
   deletePatient(id: string) {

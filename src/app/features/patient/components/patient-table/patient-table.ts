@@ -1,8 +1,10 @@
 import { DatePipe, SlicePipe } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PatientModel } from '../../models/patient.model';
+import { MatDialog } from '@angular/material/dialog';
+import { PatientForm } from '../patient-form/patient-form';
 
 @Component({
   selector: 'app-patient-table',
@@ -12,11 +14,21 @@ import { PatientModel } from '../../models/patient.model';
 })
 export class PatientTable {
   patients = input.required<PatientModel[]>();
+  dialog = inject(MatDialog);
 
   deletedClick = output<string>();
 
   delete(event: Event, id: string) {
     event.stopPropagation();
     this.deletedClick.emit(id);
+  }
+
+  openEditForm(patient: PatientModel) {
+    this.dialog.open(PatientForm, {
+      width: '750px',
+      maxWidth: '95vw',
+      disableClose: true,
+      data: patient,
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DoctorService } from '../../../doctor/services/doctor.service';
 import { DepartmentService } from '../../../departments/services/department.service';
 import { PatientService } from '../../services/patient.service';
+import { PatientModel } from '../../models/patient.model';
 
 @Component({
   selector: 'app-patient-form',
@@ -34,6 +35,9 @@ export class PatientForm implements OnInit {
 
   private dialogRef = inject(MatDialogRef<PatientForm>);
 
+  data = inject<PatientModel | null>(MAT_DIALOG_DATA, { optional: true });
+  isEditMode = !!this.data?.id;
+
   ngOnInit(): void {
     if (this.departments().length === 0) {
       this.departmentService.getDepartments();
@@ -41,6 +45,10 @@ export class PatientForm implements OnInit {
 
     if (this.doctors().length === 0) {
       this.doctorService.getDoctors();
+    }
+
+    if (this.isEditMode && this.data) {
+      this.patientForm.patchValue(this.data);
     }
   }
 
@@ -63,9 +71,16 @@ export class PatientForm implements OnInit {
   submit() {
     if (this.patientForm.invalid) return;
 
-    this.patientService.createPatient(this.patientForm.value).subscribe({
-      next: (response) => this.dialogRef.close(true),
-      error: (error) => console.error('Failed to create patient', error),
-    });
+    if (this.isEditMode && this.data?.id) {
+      this.patientService.updatePatient(this.patientForm.value, this.data.id).subscribe({
+        next: () => this.dialogRef.close(true),
+        error: (err) => console.error('Failed to update patient', err),
+      });
+    } else {
+      this.patientService.createPatient(this.patientForm.value).subscribe({
+        next: () => this.dialogRef.close(true),
+        error: (err) => console.error('Failed to create patient', err),
+      });
+    }
   }
 }
